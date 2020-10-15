@@ -13,6 +13,7 @@ var getElementsByClassName = function(className) {
     if (node.classList && node.classList.contains(className)) {
       results.push(node);
     }
+    // base and recursive case
     for ( var i = 0; i < node.children.length; i++) {
       helperFunction(node.children[i]);
     }
