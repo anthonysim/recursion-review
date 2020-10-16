@@ -2,15 +2,8 @@
 // var stringifyJSON = JSON.stringify;
 
 // but you don't so you're going to write it from scratch:
-
-
-// 9,
-// null,
-// true,
-// false,
-// 'Hello world',
-// [],
-// [8],
+// undefined
+// functions
 
 var stringifyJSON = function(obj) {
   var stringified = '';
@@ -30,7 +23,7 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'string') {
     stringified += '"' + obj + '"';
   }
-
+  // if its an array
   if (Array.isArray(obj) ) {
     stringified += '[';
 
@@ -42,28 +35,35 @@ var stringifyJSON = function(obj) {
     }
     stringified += ']';
   }
-
+  // if its an object
   if (typeof obj === 'object' && obj !== null && Array.isArray(obj) === false) {
 
     stringified += '{';
 
+    let len = Object.keys(obj).length;
 
     for (let key in obj) {
 
-      if (Array.isArray(obj[key])) {
+      if (Array.isArray(obj[key]) && len > 1) {
+        stringified += `"${key}":${stringifyJSON(obj[key])},`;
+        len -= 1;
+
+      } else if (typeof obj === 'object' && obj !== null && !Array.isArray(obj) && len > 1) {
+        stringified += `"${key}":${stringifyJSON(obj[key])},`;
+        len -= 1;
+
+      } else if (Array.isArray(obj[key]) && len === 1) {
         stringified += `"${key}":${stringifyJSON(obj[key])}`;
 
-      } else if (typeof obj === 'object' && obj !== null && Array.isArray(obj) === false) {
+      } else if (typeof obj === 'object' && obj !== null && !Array.isArray(obj) && len === 1) {
         stringified += `"${key}":${stringifyJSON(obj[key])}`;
 
       } else {
         stringified += `"${key}":"${obj[key]}"`;
       }
-
     }
     stringified += '}';
-
   }
-
   return stringified;
 };
+
