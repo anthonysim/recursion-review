@@ -14,8 +14,8 @@ var getElementsByClassName = function(className) {
       results.push(node);
     }
     // base and recursive case
-    for ( var i = 0; i < node.children.length; i++) {
-      helperFunction(node.children[i]);
+    for ( var i = 0; i < node.childNodes.length; i++) {
+      helperFunction(node.childNodes[i]);
     }
   };
   helperFunction(document.body);
