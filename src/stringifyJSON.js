@@ -26,7 +26,6 @@ var stringifyJSON = function(obj) {
       if (typeof(obj[key]) === 'function' || typeof(obj[key]) === 'undefined' ) { continue; }
       len--;
       stringified += `"${key}":${stringifyJSON(obj[key])}`;
-      //  stringified += stringifyJSON(obj[key]);
       if (len >= 1) { stringified += ','; }
     }
     stringified += '}';
