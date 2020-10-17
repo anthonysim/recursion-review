@@ -2,6 +2,8 @@
 // var stringifyJSON = JSON.stringify;
 
 // but you don't so you're going to write it from scratch:
+// undefined
+// functions
 
 var stringifyJSON = function(obj) {
   var stringified = '';
@@ -23,8 +25,8 @@ var stringifyJSON = function(obj) {
     for (var key in obj) {
       if (typeof(obj[key]) === 'function' || typeof(obj[key]) === 'undefined' ) { continue; }
       len--;
-      stringified += `"${key}":`;
-      stringified += stringifyJSON(obj[key]);
+      stringified += `"${key}":${stringifyJSON(obj[key])}`;
+      //  stringified += stringifyJSON(obj[key]);
       if (len >= 1) { stringified += ','; }
     }
     stringified += '}';
